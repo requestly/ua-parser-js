@@ -756,6 +756,24 @@
             /(plan\s9|minix|beos|os\/2|amigaos|morphos|risc\sos|openvms|fuchsia)/i,  // Plan9/Minix/BeOS/OS2/AmigaOS/MorphOS/RISCOS/OpenVMS/Fuchsia
             /(unix)\s?([\w\.]*)/i                                               // UNIX
             ], [NAME, VERSION]
+        ],
+
+        app : [[
+
+            /\b(discord)\/([\w\.]+)/i                                           // Discord
+            ], [NAME, VERSION],[
+            
+            /\b(notion)\/([\w\.]+)/i                                            // Notion
+            ], [NAME, VERSION],[
+        
+            /\b(postman)\/([\w\.]+)/i                                           // Postman
+            ], [NAME, VERSION],[
+    
+            /\b(slack)\/([\w\.]+)/i                                             // Slack
+            ], [NAME, VERSION],[
+
+            /\b(slack)\/([\w\.]+)/i                                             // Slack
+            ], [NAME, VERSION],
         ]
     };
 
@@ -803,6 +821,11 @@
             mapper.rgx.call(_os, _ua, _rgxmap.os);
             return _os;
         };
+        this.getApp = function () {
+            var _app = { name: undefined, version: undefined};
+            mapper.rgx.call(_app, _ua, _rgxmap.app);
+            return _app;
+        };
         this.getResult = function () {
             return {
                 ua      : this.getUA(),
@@ -810,7 +833,8 @@
                 engine  : this.getEngine(),
                 os      : this.getOS(),
                 device  : this.getDevice(),
-                cpu     : this.getCPU()
+                cpu     : this.getCPU(),
+                app     : this.getApp(),
             };
         };
         this.getUA = function () {
